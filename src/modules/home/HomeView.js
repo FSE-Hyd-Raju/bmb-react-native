@@ -2,7 +2,10 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  ImageBackground,
+  Platform,
+  TouchableOpacity,
+  Image,
+  Dimensions
 } from 'react-native';
 
 import { fonts, colors } from '../../styles';
@@ -19,83 +22,150 @@ export default function HomeScreen() {
   //     }
   //   });
   // };
+  const listData = [
+    {
+      id: 1,
+      brand: 'Citizen',
+      title: 'CITIZEN ECO-DRIVE',
+      subtitle: 'Limited Edition',
+      price: '$129.99',
+      badge: 'NEW',
+      badgeColor: '#3cd39f',
+      image:
+        'https://reactnativestarter.com/demo/images/city-sunny-people-street.jpg',
+    },
+    {
+      id: 2,
+      brand: 'Weeknight',
+      title: 'NEXT-LEVEL WEAR',
+      subtitle: 'Office, prom or special parties is all dressed up',
+      price: '$29.99',
+      priceFrom: true,
+      image: 'https://reactnativestarter.com/demo/images/pexels-photo-26549.jpg',
+    }
+  ];
 
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require('../../../assets/images/background.png')}
-        style={styles.bgImage}
-        resizeMode="cover"
-      >
-        <View style={styles.section}>
-          <Text size={20} white>
-            Home
-          </Text>
-        </View>
-        <View style={styles.section}>
-          <Text color="#19e7f7" size={15}>
-            The smartest Way to build your mobile app
-          </Text>
-          <Text size={30} bold white style={styles.title}>
-            Buy My Books
-          </Text>
-        </View>
-        <View style={[styles.section, styles.sectionLarge]}>
-          <Text color="#19e7f7" hCenter size={15} style={styles.description}>
-            {' '}
-            Lets get started!
-          </Text>
-          
-        </View>
-      </ImageBackground>
+    <View style={styles.section}>
+      {listData.map(item => (
+        <TouchableOpacity key={item.id}>
+          <View style={styles.itemOneContainer}>
+            <View style={styles.itemOneImageContainer}>
+              <Image style={styles.itemOneImage} source={{ uri: item.image }} />
+            </View>
+            <View style={styles.itemOneContent}>
+              <Text style={styles.itemOneTitle} numberOfLines={1}>
+                {item.title}
+              </Text>
+              <Text
+                style={styles.itemOneSubTitle}
+                styleName="collapsible"
+                numberOfLines={3}
+              >
+                {item.subtitle}
+              </Text>
+              <Text style={styles.itemOnePrice} numberOfLines={1}>
+                {item.price}
+              </Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  bgImage: {
-    flex: 1,
-    marginHorizontal: -20,
-  },
   section: {
     flex: 1,
     paddingHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  sectionLarge: {
-    flex: 2,
-    justifyContent: 'space-around',
+  itemOneImage: {
+    height: 200,
+    width: Dimensions.get('window').width / 2 - 40,
   },
-  sectionHeader: {
-    marginBottom: 8,
-  },
-  priceContainer: {
-    alignItems: 'center',
-  },
-  description: {
-    padding: 15,
-    lineHeight: 25,
-  },
-  titleDescription: {
-    color: '#19e7f7',
-    textAlign: 'center',
+ 
+  itemTwoSubTitle: {
+    color: colors.white,
     fontFamily: fonts.primaryRegular,
     fontSize: 15,
+    marginVertical: 5,
   },
-  title: {
-    marginTop: 30,
+  itemTwoPrice: {
+    color: colors.white,
+    fontFamily: fonts.primaryBold,
+    fontSize: 20,
   },
-  price: {
-    marginBottom: 5,
+  itemTwoImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
-  priceLink: {
-    borderBottomWidth: 1,
-    borderBottomColor: colors.primary,
+  itemTwoOverlay: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: '#6271da',
+    opacity: 0.5,
+  },
+  itemThreeContainer: {
+    backgroundColor: 'white',
+  },
+  itemThreeSubContainer: {
+    flexDirection: 'row',
+    paddingVertical: 10,
+  },
+  itemThreeImage: {
+    height: 100,
+    width: 100,
+  },
+  itemThreeContent: {
+    flex: 1,
+    paddingLeft: 15,
+    justifyContent: 'space-between',
+  },
+  itemThreeBrand: {
+    fontFamily: fonts.primaryRegular,
+    fontSize: 14,
+    color: '#617ae1',
+  },
+  itemThreeTitle: {
+    fontFamily: fonts.primaryBold,
+    fontSize: 16,
+    color: '#5F5F5F',
+  },
+  itemThreeSubtitle: {
+    fontFamily: fonts.primaryRegular,
+    fontSize: 12,
+    color: '#a4a4a4',
+  },
+  itemThreeMetaContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  itemThreePrice: {
+    fontFamily: fonts.primaryRegular,
+    fontSize: 15,
+    color: '#5f5f5f',
+    textAlign: 'right',
+  },
+  itemThreeHr: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#e3e3e3',
+    marginRight: -15,
+  },
+  badge: {
+    backgroundColor: colors.secondary,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
 });
